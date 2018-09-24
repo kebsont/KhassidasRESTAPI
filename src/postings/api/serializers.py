@@ -17,9 +17,8 @@ class KhassidaPostSerializer(serializers.ModelSerializer): # forms.ModelForm
         ]
         read_only_fields = ['id', 'user']
 
-    # converts to JSON
-    # validations for data passed
-
+        #convert to json
+        #validation for data passed
     def get_url(self, obj):
         # request
         request = self.context.get("request")
