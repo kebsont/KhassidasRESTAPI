@@ -12,7 +12,7 @@ class KhassidaPostSerializer(serializers.ModelSerializer): # forms.ModelForm
             'id',
             'user',
             'title',
-            'content',
+            'file',
             'timestamp',
         ]
         read_only_fields = ['id', 'user']

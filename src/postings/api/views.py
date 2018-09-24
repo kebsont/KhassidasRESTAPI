@@ -17,7 +17,7 @@ class KhassidaPostAPIView(mixins.CreateModelMixin, generics.ListAPIView): # Deta
         if query is not None:
             qs = qs.filter(
                     Q(title__icontains=query)|
-                    Q(content__icontains=query)
+                    Q(file__icontains=query)
                     ).distinct()
         return qs
 
