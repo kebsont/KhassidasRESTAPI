@@ -2,6 +2,7 @@
 .DS_STORE
 
 # Virtualenv related
+khEnv/
 bin/
 include/
 pip-selfcheck.json
