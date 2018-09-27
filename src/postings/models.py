@@ -37,7 +37,7 @@ class KhassidaPost(models.Model):
 def book_post_save(sender, instance=False, **kwargs):
     """This post save function creates a thumbnail for the commentary PDF"""
     pdf = KhassidaPost.objects.get(pk=instance.pk)
-    command = "convert -quality 95 -thumbnail 100 %s/%s[0] %s/%s" % (settings.MEDIA_ROOT, pdf.file, settings.MEDIA_ROOT, pdf.file)
+    command = "convert -quality 95 -thumbnail 100 %s/%s[0] %s/cover/%s.png" % (settings.MEDIA_ROOT, pdf.file, settings.MEDIA_ROOT, pdf.file)
     # command = "convert -thumbnail 222 RapportSI.pdf[0] testQ.png"
     # params = ['convert', '-thumbnail 300 -resize 100x100', 'RapportSI.pdf', 'thumb.jpg']
     # subprocess.check_call(params)
