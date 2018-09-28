@@ -48,6 +48,7 @@ def book_post_save(sender, instance=False, **kwargs):
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
     )
+    print('# DEBUG: ')
     stdout_value,stderr_value = proc.communicate()
     print(stdout_value)
     print(stderr_value)
