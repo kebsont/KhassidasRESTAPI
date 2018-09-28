@@ -11,7 +11,7 @@ class KhassidaPost(models.Model):
     user        = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     title       = models.CharField(max_length=120, null=True, blank=True)
     file        = models.FileField(blank=False,null=False)
-    coverImage  = models.ImageField(upload_to = 'media/cover/',blank = True,null = True)
+    coverImage  = models.CharField(max_length=120, null=True)
     timestamp   = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -38,9 +38,6 @@ def book_post_save(sender, instance=False, **kwargs):
     """This post save function creates a thumbnail for the commentary PDF"""
     pdf = KhassidaPost.objects.get(pk=instance.pk)
     command = "convert -quality 95 -thumbnail 100 %s/%s[0] %s/cover/%s.png" % (settings.MEDIA_ROOT, pdf.file, settings.MEDIA_ROOT, pdf.file)
-    # command = "convert -thumbnail 222 RapportSI.pdf[0] testQ.png"
-    # params = ['convert', '-thumbnail 300 -resize 100x100', 'RapportSI.pdf', 'thumb.jpg']
-    # subprocess.check_call(params)
 
     proc = subprocess.Popen(command,
         shell=True,
@@ -55,3 +52,4 @@ def book_post_save(sender, instance=False, **kwargs):
 
 # Hook up the signal
 post_save.connect(book_post_save, sender=KhassidaPost)
+# KhassidaPost.coverImage = "frffrf"
