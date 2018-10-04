@@ -9,7 +9,6 @@ from .serializers import KhassidaPostSerializer
 class KhassidaPostAPIView(mixins.CreateModelMixin, generics.ListAPIView): # DetailView CreateView FormView
     lookup_field            = 'pk' # slug, id # url(r'?P<pk>\d+')
     serializer_class        = KhassidaPostSerializer
-    #queryset                = KhassidaPost.objects.all()
 
     def get_queryset(self):
         qs = KhassidaPost.objects.all()

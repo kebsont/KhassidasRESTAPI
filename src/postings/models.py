@@ -11,15 +11,18 @@ class KhassidaPost(models.Model):
     user        = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     title       = models.CharField(max_length=120, null=True, blank=True)
     file        = models.FileField(blank=False,null=False)
-    coverImage  = models.CharField(max_length=120, null=True)
+    coverImage  = models.ImageField(upload_to="")
     timestamp   = models.DateTimeField(auto_now_add=True)
+        # def __init__(self):
+        #     self.coverImage = self.file + ".png"
+        #     print (self.coverImage)
 
     def __str__(self):
         return str(self.file)
 
     def save(self):
-        thumbnail = "media/cover/%s.png" % (self.timestamp,)
-        self.thumbnail = thumbnail
+        thumbnail = "cover/%s.png" % (self.file)
+        self.coverImage = thumbnail
         super(KhassidaPost, self).save()
 
 
@@ -34,7 +37,7 @@ class KhassidaPost(models.Model):
         return api_reverse("api-postings:post-rud", kwargs={'pk': self.pk}, request=request)
 
     # What to do after a PDF is saved
-def book_post_save(sender, instance=False, **kwargs):
+def book_post_save(sender, instance=True, **kwargs):
     """This post save function creates a thumbnail for the commentary PDF"""
     pdf = KhassidaPost.objects.get(pk=instance.pk)
     command = "convert -quality 95 -thumbnail 100 %s/%s[0] %s/cover/%s.png" % (settings.MEDIA_ROOT, pdf.file, settings.MEDIA_ROOT, pdf.file)
@@ -46,6 +49,7 @@ def book_post_save(sender, instance=False, **kwargs):
         stderr=subprocess.PIPE,
     )
     print('# DEBUG: ')
+    print(pdf.coverImage)
     stdout_value,stderr_value = proc.communicate()
     print(stdout_value)
     print(stderr_value)
