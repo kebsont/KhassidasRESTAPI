@@ -11,7 +11,7 @@ class KhassidaPost(models.Model):
     user        = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     title       = models.CharField(max_length=120, null=True, blank=True)
     file        = models.FileField(blank=False,null=False)
-    coverImage  = models.ImageField(upload_to="")
+    coverImage  = models.ImageField(upload_to="", null=True, blank=True)
     timestamp   = models.DateTimeField(auto_now_add=True)
         # def __init__(self):
         #     self.coverImage = self.file + ".png"
@@ -55,5 +55,5 @@ def book_post_save(sender, instance=True, **kwargs):
     print(stderr_value)
 
 # Hook up the signal
-post_save.connect(book_post_save, sender=KhassidaPost)
+# post_save.connect(book_post_save, sender=KhassidaPost)
 # KhassidaPost.coverImage = "frffrf"
