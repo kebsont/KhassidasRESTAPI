@@ -12,6 +12,7 @@ class KhassidaPostSerializer(serializers.ModelSerializer): # forms.ModelForm
             'id',
             'user',
             'title',
+            'category',
             'file',
             'coverImage',
             'timestamp',
