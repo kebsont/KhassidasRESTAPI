@@ -2,6 +2,7 @@
 .DS_STORE
 
 # Virtualenv related
+venv/
 khEnv/
 bin/
 include/

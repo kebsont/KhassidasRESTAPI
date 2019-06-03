@@ -4,11 +4,13 @@ from rest_framework import generics, mixins
 from postings.models import KhassidaPost
 from .permissions import IsOwnerOrReadOnly
 from .serializers import KhassidaPostSerializer
-
+from django_filters.rest_framework import DjangoFilterBackend
 
 class KhassidaPostAPIView(mixins.CreateModelMixin, generics.ListAPIView): # DetailView CreateView FormView
     lookup_field            = 'pk' # slug, id # url(r'?P<pk>\d+')
     serializer_class        = KhassidaPostSerializer
+    filter_backends = (DjangoFilterBackend,)
+    filter_fields = ('category',)
 
     def get_queryset(self):
         qs = KhassidaPost.objects.all()
